@@ -1,0 +1,47 @@
+<%
+  # Compact bottom bars hold a few primary destinations; everything else
+  # (and sign-out) sits behind More. Rail and drawer widths show the full set.
+  primary_limit = 4
+  primary_items = items.first(primary_limit)
+  overflow_items = items.drop(primary_limit)
+%>
+<nav class="md-navigation" aria-label="Primary">
+  <% primary_items.each do |item| %>
+    <%= link_to item.fetch(:href), class: class_names("md-navigation__item", active: item[:active]), aria: { current: item[:active] ? "page" : nil } do %>
+      <%= material_symbol(item.fetch(:icon), fill: item[:active]) %>
+      <span><%= item.fetch(:label) %></span>
+    <% end %>
+  <% end %>
+  <% overflow_items.each do |item| %>
+    <%= link_to item.fetch(:href), class: class_names("md-navigation__item", "md-navigation__item--secondary", active: item[:active]), aria: { current: item[:active] ? "page" : nil } do %>
+      <%= material_symbol(item.fetch(:icon), fill: item[:active]) %>
+      <span><%= item.fetch(:label) %></span>
+    <% end %>
+  <% end %>
+  <div class="md-navigation__more" data-controller="foundation--menu">
+    <button type="button" class="md-navigation__item" aria-label="More destinations" aria-haspopup="menu" aria-expanded="false"
+            data-foundation--menu-target="trigger" data-action="foundation--menu#toggle">
+      <%= material_symbol(:more_horiz) %>
+      <span>More</span>
+    </button>
+    <div class="md-menu__surface md-navigation__more-surface" role="menu" hidden
+         data-foundation--menu-target="surface" data-action="keydown->foundation--menu#navigate">
+      <% overflow_items.each do |item| %>
+        <%= link_to item.fetch(:label), item.fetch(:href), role: "menuitem", tabindex: -1, class: "md-menu__item" %>
+      <% end %>
+      <%= button_to destroy_user_session_path, method: :delete,
+            form: { class: "md-navigation__menu-form" },
+            class: "md-menu__item md-navigation__signout",
+            role: "menuitem",
+            tabindex: -1 do %>
+        Sign out
+      <% end %>
+    </div>
+  </div>
+  <%= button_to destroy_user_session_path, method: :delete,
+        form: { class: "md-navigation__signout-form md-navigation__item--secondary" },
+        class: "md-navigation__item md-navigation__signout" do %>
+    <%= material_symbol(:logout) %>
+    <span>Sign out</span>
+  <% end %>
+</nav>

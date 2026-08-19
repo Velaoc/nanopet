@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require "rubygems"
+require "bundler/setup"
+
+# No --ensure-latest here: it turns every upstream brakeman release into a
+# verification failure for all forks pinned to the previous version (brakeman
+# 8.0.6 broke every fresh fork on 2026-08-14). The lockfile pins the version
+# that actually runs; bundler-audit covers vulnerable-gem detection.
+
+load Gem.bin_path("brakeman", "brakeman")

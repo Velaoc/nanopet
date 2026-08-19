@@ -1,0 +1,27 @@
+<header class="md-top-app-bar">
+  <div class="md-top-app-bar__inner">
+    <%= link_to root_path, class: "md-wordmark", aria: { label: "#{identity[:application_name]} home" } do %>
+      <span class="md-wordmark__mark" aria-hidden="true"></span>
+      <span class="md-wordmark__name"><%= identity[:application_name] %></span>
+    <% end %>
+    <div class="md-top-app-bar__actions">
+      <% if user_signed_in? %>
+        <span class="md-user-label"><%= current_user.email %></span>
+      <% else %>
+        <% foundation_public_footer_links.each do |link| %>
+          <%= link_to link[:label], link[:href], class: "md-button md-button--text md-top-app-bar__link" %>
+        <% end %>
+      <% end %>
+      <button type="button" class="md-icon-button" aria-label="Change color theme"
+              data-action="foundation--theme#cycle" data-foundation--theme-target="button">
+        <%= material_symbol(:light_mode, fill: true, class: "md-theme-icon", data: { foundation__theme_target: "icon" }) %>
+      </button>
+      <% unless user_signed_in? %>
+        <%= link_to "Sign in", new_user_session_path, class: "md-button md-button--outlined md-top-app-bar__account" %>
+        <% unless Foundation.surface_feature?(:shop) %>
+          <%= link_to "Get started", new_user_registration_path, class: "md-button md-button--filled md-top-app-bar__cta" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</header>
