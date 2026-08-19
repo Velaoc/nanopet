@@ -4,6 +4,9 @@ class HealthcheckTest < ActionDispatch::IntegrationTest
   test "healthcheck endpoint responds successfully" do
     get "/healthcheck"
 
+    unless response.successful?
+      puts "HEALTHCHECK-DEBUG: " + response.body.gsub(/<[^>]+>/, " ").squeeze(" ")[0, 3000]
+    end
     assert_response :success
   end
 
