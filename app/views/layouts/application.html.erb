@@ -16,10 +16,11 @@
     <%= csp_meta_tag %>
     <%= yield :head %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "pet", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="md-app <%= foundation_design_skin_body_class %>" data-controller="foundation--theme" data-design-skin="<%= Foundation.design_skin.name %>" data-product-surface="<%= Foundation.product_surface.name %>">
+  <body class="md-app <%= foundation_design_skin_body_class %>" data-controller="foundation--theme pet" data-design-skin="<%= Foundation.design_skin.name %>" data-product-surface="<%= Foundation.product_surface.name %>">
     <% identity = Rails.configuration.x.foundation %>
     <a class="md-skip-link" href="#main-content">Skip to main content</a>
     <%= render "foundation/components/top_app_bar", identity: identity %>
@@ -36,9 +37,6 @@
         <div class="md-footer__inner">
           <p><strong><%= identity[:application_name] %></strong><br><span><%= identity[:default_page_description] %></span></p>
           <nav class="md-footer__links" aria-label="Legal and support">
-            <% foundation_public_footer_links.each do |link| %>
-              <%= link_to link[:label], link[:href] %>
-            <% end %>
             <%= link_to "Terms of Service", legal_terms_path %>
             <%= link_to "Privacy Policy", legal_privacy_path %>
             <%= mail_to identity[:support_email], "Support" %>

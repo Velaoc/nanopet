@@ -1,0 +1,25 @@
+<%= turbo_stream.replace "pet-panel-frame" do %>
+  <turbo-frame id="pet-panel-frame" data-np-panel>
+    <%= render "pet/panel", pet: @pet, stats: @stats, reaction: @reaction,
+          rested: @pet.resting?, distressed: @pet.distressed? %>
+  </turbo-frame>
+<% end %>
+<%= turbo_stream.replace "care-log" do %>
+  <div id="care-log" data-np-log>
+    <% if @events.any? %>
+      <ol class="np-log">
+        <% @events.each do |event| %>
+          <li class="np-log__entry">
+            <span class="np-log__action np-log__action--<%= event.action %>"><%= event.action %></span>
+            <span class="np-log__text"><%= event.message %></span>
+            <time class="np-log__time" datetime="<%= event.occurred_at.iso8601 %>">
+              <%= time_ago_in_words(event.occurred_at) %> ago
+            </time>
+          </li>
+        <% end %>
+      </ol>
+    <% else %>
+      <p class="np-log__empty">No care events yet. Feed or play with <%= @pet.name %> to start the log.</p>
+    <% end %>
+  </div>
+<% end %>

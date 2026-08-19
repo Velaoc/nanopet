@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_11_150000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_11_160002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_150000) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "care_events", force: :cascade do |t|
+    t.string "action", null: false
+    t.datetime "created_at", null: false
+    t.string "message"
+    t.datetime "occurred_at", null: false
+    t.bigint "pet_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id", "occurred_at"], name: "index_care_events_on_pet_id_and_occurred_at"
+    t.index ["pet_id"], name: "index_care_events_on_pet_id"
   end
 
   create_table "identities", force: :cascade do |t|
@@ -294,6 +305,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_150000) do
     t.string "event_type"
     t.string "processor"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pets", force: :cascade do |t|
+    t.boolean "active", default: false, null: false
+    t.integer "base_energy", default: 70, null: false
+    t.integer "base_happiness", default: 70, null: false
+    t.integer "base_hunger", default: 70, null: false
+    t.datetime "created_at", null: false
+    t.datetime "last_cared_at", null: false
+    t.string "look", default: "mochi", null: false
+    t.string "name", null: false
+    t.datetime "resting_until"
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_pets_on_active"
   end
 
   create_table "pricing_plans_assignments", force: :cascade do |t|
@@ -607,6 +632,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_11_150000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "care_events", "pets"
   add_foreign_key "identities", "users"
   add_foreign_key "legal_acceptances", "users"
   add_foreign_key "organizations_allowlist_entries", "organizations_organizations", column: "organization_id"

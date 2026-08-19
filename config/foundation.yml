@@ -2,9 +2,6 @@
 #
 # Loaded in config/application.rb and exposed everywhere as
 # Rails.configuration.x.foundation (keys work as strings or symbols).
-# These are template placeholders. Run bin/rename to stamp a real
-# identity across this file, the README, and the web manifest before
-# shipping an app; editing them here by hand works too.
 shared:
   # Display name used in page titles, meta tags, and mail.
   application_name: "NanoPet"
@@ -18,8 +15,8 @@ shared:
   brand_seed_color: "#6750A4"
 
   # Fallbacks for pages that do not set their own title/description.
-  default_page_title: "Welcome"
-  default_page_description: "A tamagotchi-style virtual pet that lives in the browser: feed it, play with it, put it to rest, and keep it alive stats decay over real time and persist across reloads."
+  default_page_title: "Your little companion is waiting"
+  default_page_description: "A tamagotchi-style virtual pet that lives in the browser: feed it, play with it, put it to rest, and keep it alive. Stats decay over real time and persist across reloads."
 
   # Absolute URL of the default Open Graph / social sharing image.
   # Blank omits the og:image tag.

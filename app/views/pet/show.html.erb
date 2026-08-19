@@ -1,0 +1,44 @@
+<% identity = Rails.configuration.x.foundation %>
+<% title "#{@pet.name} — #{identity[:application_name]}" %>
+
+<div class="np-page">
+  <section class="np-stage" aria-labelledby="pet-title">
+    <div class="np-stage__heading">
+      <p class="md-section__eyebrow"><%= identity[:application_name] %></p>
+      <h1 id="pet-title" class="np-heading">Your little companion is waiting.</h1>
+    </div>
+
+    <div class="np-stage__card">
+      <turbo-frame id="pet-panel-frame" data-np-panel>
+        <%= render "pet/panel", pet: @pet, stats: @stats, reaction: nil, rested: @pet.resting?,
+              distressed: @pet.distressed? %>
+      </turbo-frame>
+    </div>
+  </section>
+
+  <section class="np-side" aria-labelledby="care-log-title">
+    <div class="md-card md-card--filled np-log-card">
+      <div class="np-log-card__head">
+        <h2 id="care-log-title">Care log</h2>
+        <%= link_to "Adopt a new pet", new_pet_path, class: "md-button md-button--text md-button--compact" %>
+      </div>
+      <div id="care-log" data-np-log>
+        <% if @events.any? %>
+          <ol class="np-log">
+            <% @events.each do |event| %>
+              <li class="np-log__entry">
+                <span class="np-log__action np-log__action--<%= event.action %>"><%= event.action %></span>
+                <span class="np-log__text"><%= event.message %></span>
+                <time class="np-log__time" datetime="<%= event.occurred_at.iso8601 %>">
+                  <%= time_ago_in_words(event.occurred_at) %> ago
+                </time>
+              </li>
+            <% end %>
+          </ol>
+        <% else %>
+          <p class="np-log__empty">No care events yet. Feed or play with <%= @pet.name %> to start the log.</p>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</div>

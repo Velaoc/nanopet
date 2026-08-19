@@ -1,0 +1,36 @@
+<% identity = Rails.configuration.x.foundation %>
+<% title "Adopt a pet — #{identity[:application_name]}" %>
+
+<div class="np-adopt">
+  <section class="np-adopt__intro" aria-labelledby="adopt-title">
+    <p class="md-section__eyebrow"><%= identity[:application_name] %></p>
+    <h1 id="adopt-title" class="np-heading">Adopt a new companion</h1>
+    <p>Name it and pick a look. Your new pet becomes the active pet — the previous one retires.</p>
+  </section>
+
+  <section class="np-adopt__form" aria-label="Adoption form">
+    <%= form_with model: @pet, url: pet_path, class: "md-form" do |form| %>
+      <%= md_text_field(form, :name, label: "Pet name", hint: "Something with character, like Mochi.") %>
+
+      <fieldset class="md-field np-look-picker">
+        <legend class="md-field__label">Pick a look</legend>
+        <div class="np-look-options">
+          <% pet_palettes.each do |key, palette| %>
+            <label class="np-look-option" data-look="<%= key %>">
+              <%= form.radio_button :look, key, checked: key == "mochi" %>
+              <span class="np-look-option__card">
+                <span class="np-look-option__swatch" style="--np-swatch: <%= palette[:body] %>"></span>
+                <span class="np-look-option__name"><%= palette[:name] %></span>
+              </span>
+            </label>
+          <% end %>
+        </div>
+      </fieldset>
+
+      <div class="md-actions">
+        <%= form.submit "Adopt", class: "md-button md-button--filled" %>
+        <%= link_to "Keep my current pet", root_path, class: "md-button md-button--text" %>
+      </div>
+    <% end %>
+  </section>
+</div>

@@ -1,0 +1,45 @@
+<%# Shared pet panel: the pet itself, live stats, and the care controls. %>
+<div id="pet-panel" class="np-panel">
+  <%= render "pet/creature", pet: pet, stats: stats, reaction: reaction %>
+
+  <h2 class="np-pet-name"><%= pet.name %></h2>
+  <p class="np-pet-tagline"><%= pet_tagline(pet, stats) %></p>
+
+  <dl class="np-stats">
+    <% { hunger: "Hunger", happiness: "Happiness", energy: "Energy" }.each do |key, label| %>
+      <div class="np-stat">
+        <dt><span class="np-stat__label"><%= label %></span>
+            <span class="np-stat__value" data-np-stat="<%= key %>"><%= stats[key] %></span></dt>
+        <dd>
+          <progress class="md-progress np-stat__bar" max="100" value="<%= stats[key] %>"
+                    aria-label="<%= label %>"></progress>
+        </dd>
+      </div>
+    <% end %>
+  </dl>
+
+  <div class="np-actions">
+    <%= button_to feed_pet_path, method: :post, class: "md-button md-button--filled",
+          data: { turbo_frame: "pet-panel-frame", np_action: "feed" } do %>
+      <%= material_symbol(:add, size: 20) %><span>Feed</span>
+    <% end %>
+    <%= button_to play_pet_path, method: :post, class: "md-button md-button--filled",
+          data: { turbo_frame: "pet-panel-frame", np_action: "play" } do %>
+      <%= material_symbol(:star, size: 20) %><span>Play</span>
+    <% end %>
+    <%= button_to rest_pet_path, method: :post, class: "md-button md-button--filled",
+          data: { turbo_frame: "pet-panel-frame", np_action: "rest" } do %>
+      <%= material_symbol(:dark_mode, size: 20) %><span>Rest</span>
+    <% end %>
+  </div>
+
+  <% if distressed %>
+    <div class="np-rescue" role="status">
+      <p><%= pet.name %> has bottomed out and looks very tired. A gentle rescue will comfort it back to life.</p>
+      <%= button_to rescue_pet_path, method: :post, class: "md-button md-button--filled md-button--error",
+            data: { turbo_frame: "pet-panel-frame", np_action: "rescue" } do %>
+        <%= material_symbol(:check_circle, size: 20) %><span>Comfort <%= pet.name %></span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

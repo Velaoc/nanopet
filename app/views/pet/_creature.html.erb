@@ -1,0 +1,80 @@
+<%# The NanoPet blob creature: inline SVG + CSS keyframes in pet.css.
+    Animate the story — the body squishes on feed, spins on play, and
+    droops to sleep on rest. The silhouette must read as a friendly blob:
+    one round body, stubby arms and feet, a belly, and a pair of eyes. %>
+<%
+  palette = pet_palette(pet.look)
+  slump = pet_slump?(stats)
+  droop = pet_droop?(stats)
+  asleep = pet_asleep?(pet, stats)
+  reaction_class = "nano-pet--#{reaction}" if reaction
+%>
+<div class="nano-pet nano-pet--<%= pet.look %> <%= reaction_class %>
+     <%= "nano-pet--slump" if slump %> <%= "nano-pet--droop" if droop %> <%= "nano-pet--asleep" if asleep %>"
+     data-controller="pet" data-pet-target="panel" data-pet-look="<%= pet.look %>" aria-hidden="true">
+  <div class="nano-pet__floor"></div>
+  <div class="nano-pet__shadow"></div>
+  <svg class="nano-pet__svg" viewBox="0 0 320 300" role="img"
+       aria-label="<%= pet.name %> — a <%= pet.look %> creature">
+    <defs>
+      <linearGradient id="np-body-<%= pet.look %>" x1="0" y1="0" x2="0.4" y2="1">
+        <stop offset="0%" stop-color="<%= palette[:body] %>"/>
+        <stop offset="100%" stop-color="<%= palette[:body_dark] %>"/>
+      </linearGradient>
+      <radialGradient id="np-belly-<%= pet.look %>" cx="0.5" cy="0.35" r="0.75">
+        <stop offset="0%" stop-color="<%= palette[:belly] %>"/>
+        <stop offset="100%" stop-color="<%= palette[:body] %>" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+
+    <g class="nano-pet__rig">
+      <!-- stubby arms -->
+      <ellipse class="nano-pet__arm nano-pet__arm--left" cx="74" cy="172" rx="26" ry="34"
+               fill="<%= palette[:body_dark] %>" transform="rotate(24 74 172)"/>
+      <ellipse class="nano-pet__arm nano-pet__arm--right" cx="246" cy="172" rx="26" ry="34"
+               fill="<%= palette[:body_dark] %>" transform="rotate(-24 246 172)"/>
+
+      <!-- the body -->
+      <path class="nano-pet__body" d="M160 58
+        C 96 56, 46 108, 50 168
+        C 53 226, 100 254, 160 252
+        C 220 254, 267 226, 270 168
+        C 274 108, 224 56, 160 58 Z"
+        fill="url(#np-body-<%= pet.look %>)"/>
+
+      <!-- feet -->
+      <ellipse class="nano-pet__foot nano-pet__foot--left" cx="112" cy="248" rx="34" ry="20" fill="<%= palette[:body_dark] %>"/>
+      <ellipse class="nano-pet__foot nano-pet__foot--right" cx="208" cy="248" rx="34" ry="20" fill="<%= palette[:body_dark] %>"/>
+
+      <!-- belly -->
+      <ellipse class="nano-pet__belly" cx="160" cy="182" rx="62" ry="58" fill="url(#np-belly-<%= pet.look %>)"/>
+
+      <!-- cheeks -->
+      <ellipse class="nano-pet__cheek nano-pet__cheek--left" cx="112" cy="152" rx="15" ry="9" fill="<%= palette[:cheek] %>" opacity="0.55"/>
+      <ellipse class="nano-pet__cheek nano-pet__cheek--right" cx="208" cy="152" rx="15" ry="9" fill="<%= palette[:cheek] %>" opacity="0.55"/>
+
+      <!-- face -->
+      <g class="nano-pet__face">
+        <ellipse class="nano-pet__eye nano-pet__eye--left" cx="126" cy="128" rx="12" ry="14" fill="#3A2A33"/>
+        <ellipse class="nano-pet__eye nano-pet__eye--right" cx="194" cy="128" rx="12" ry="14" fill="#3A2A33"/>
+        <ellipse class="nano-pet__glint nano-pet__glint--left" cx="130" cy="122" rx="4" ry="5" fill="#FFFFFF"/>
+        <ellipse class="nano-pet__glint nano-pet__glint--right" cx="198" cy="122" rx="4" ry="5" fill="#FFFFFF"/>
+        <path class="nano-pet__mouth" d="M144 160 Q160 174 176 160" stroke="#3A2A33" stroke-width="5"
+              fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- closed eyes while resting -->
+      <g class="nano-pet__sleep">
+        <path d="M112 128 Q126 120 140 128" stroke="#3A2A33" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M180 128 Q194 120 208 128" stroke="#3A2A33" stroke-width="5" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- zzz while resting -->
+      <g class="nano-pet__zzz">
+        <text x="238" y="96" class="nano-pet__zzz-text">z</text>
+        <text x="256" y="74" class="nano-pet__zzz-text">z</text>
+        <text x="278" y="56" class="nano-pet__zzz-text">z</text>
+      </g>
+    </g>
+  </svg>
+</div>

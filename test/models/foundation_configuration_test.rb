@@ -38,10 +38,10 @@ class FoundationConfigurationTest < ActiveSupport::TestCase
     end
   end
 
-  test "foundation config template defaults" do
+  test "foundation config is stamped with the NanoPet identity" do
     foundation = Rails.configuration.x.foundation
 
-    assert_equal "Application", foundation[:application_name]
+    assert_equal "NanoPet", foundation[:application_name]
     assert_match(/\A#\h{6}\z/, foundation[:brand_seed_color])
     assert_equal "platform", foundation[:product_surface]
     assert_equal "material", foundation[:design_skin]

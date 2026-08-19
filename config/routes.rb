@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # NanoPet: the tamagotchi-style virtual pet. No accounts — the public root
+  # IS the pet. Care actions post back and update the pet panel in place.
+  resource :pet, only: %i[show new create], controller: "pet" do
+    post :feed, on: :member
+    post :play, on: :member
+    post :rest, on: :member
+    post :rescue, on: :member
+  end
 
   # Email/password authentication (SPEC M2). Custom controllers add the
   # Turnstile check and the legal-assent record on top of stock Devise.
@@ -130,6 +137,6 @@ Rails.application.routes.draw do
     get "session", to: "sessions#show", as: :session
   end
 
-  # Minimal landing page until the M7 marketing set replaces it.
-    root "foundation/home#show"
+  # The public root IS the pet.
+  root "pet#show"
 end

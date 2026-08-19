@@ -1,0 +1,27 @@
+mochi:
+  name: Mochi
+  look: mochi
+  active: true
+  base_hunger: 70
+  base_happiness: 72
+  base_energy: 68
+  last_cared_at: <%= 1.minute.ago.to_fs(:db) %>
+
+resting:
+  name: Slumber
+  look: blob
+  active: false
+  base_hunger: 60
+  base_happiness: 60
+  base_energy: 60
+  last_cared_at: <%= 1.minute.ago.to_fs(:db) %>
+  resting_until: <%= 20.minutes.from_now.to_fs(:db) %>
+
+distressed:
+  name: Wisp
+  look: gummy
+  active: false
+  base_hunger: 0
+  base_happiness: 0
+  base_energy: 0
+  last_cared_at: <%= 1.minute.ago.to_fs(:db) %>
