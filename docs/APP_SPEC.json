@@ -1,0 +1,53 @@
+{
+  "name": "NanoPet",
+  "purpose": "A tamagotchi-style virtual pet that lives in the browser: feed it, play with it, put it to rest, and keep it alive — stats decay over real time and persist across reloads.",
+  "actors": [
+    "Visitor (single-player, no account needed)"
+  ],
+  "entities": [
+    {
+      "name": "Pet",
+      "relationships": [
+        "has many care_events",
+        "has hunger/happiness/energy stats (0-100)",
+        "stats decay from timestamps, computed at read time"
+      ]
+    },
+    {
+      "name": "CareEvent",
+      "relationships": [
+        "belongs to pet",
+        "records feed/play/rest actions with timestamps"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Adopt a pet",
+      "description": "Name a new pet and pick its look, or keep the seeded default pet"
+    },
+    {
+      "name": "Feed",
+      "description": "Raises hunger; pet reacts, logged as a care event"
+    },
+    {
+      "name": "Play",
+      "description": "Raises happiness, costs a little energy"
+    },
+    {
+      "name": "Rest",
+      "description": "Restores energy over a short rest"
+    },
+    {
+      "name": "Watch stats decay",
+      "description": "Hunger/happiness/energy tick down with real elapsed time whenever the pet is viewed"
+    },
+    {
+      "name": "Rescue a neglected pet",
+      "description": "If the pet's stats bottom out, a gentle rescue/revive path"
+    }
+  ],
+  "modules": [],
+  "integrations": [],
+  "seed_demo": "One seeded default pet (named Mochi, a blob-like creature) with mid-range stats and a few care events, so the app opens straight onto a living pet. Full care history visible in a small log."
+}
