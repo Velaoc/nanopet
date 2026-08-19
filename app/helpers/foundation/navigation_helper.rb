@@ -9,34 +9,6 @@ module Foundation
       surface = Foundation.product_surface
       operator = user&.admin? == true
 
-      # foundation:module storefront
-      if surface.feature?(:shop)
-        items << {
-          label: "Shop",
-          icon: :home,
-          href: root_path,
-          active: request.path == root_path || request.path.start_with?("/storefront/products")
-        }
-      elsif surface.feature?(:home)
-        items << {
-          label: "Home",
-          icon: :home,
-          href: root_path,
-          active: request.path == root_path
-        }
-      end
-
-      if surface.feature?(:cart)
-        items << {
-          label: "Cart",
-          icon: :payments,
-          href: storefront_cart_path,
-          active: request.path == storefront_cart_path ||
-            request.path == storefront_checkout_path ||
-            request.path.start_with?("/storefront/orders")
-        }
-      end
-      # /foundation:module storefront
 
       # When storefront is omitted the shop/cart block above is stripped; keep
       # a plain home entry for surfaces that still want one.
@@ -96,16 +68,6 @@ module Foundation
         }
       end
 
-      # foundation:module crm
-      if surface.feature?(:crm)
-        items << {
-          label: "CRM",
-          icon: :person,
-          href: crm_root_path,
-          active: request.path.start_with?("/crm")
-        }
-      end
-      # /foundation:module crm
 
       if surface.feature?(:admin, operator: operator)
         items << {
@@ -123,14 +85,6 @@ module Foundation
       links = []
       surface = Foundation.product_surface
 
-      # foundation:module storefront
-      if surface.feature?(:shop)
-        links << { label: "Shop", href: storefront_products_path }
-        links << { label: "Cart", href: storefront_cart_path } if surface.feature?(:cart)
-      elsif surface.feature?(:pricing) || surface.feature?(:billing)
-        links << { label: "Pricing", href: pricing_path }
-      end
-      # /foundation:module storefront
 
       if links.empty? && (surface.feature?(:pricing) || surface.feature?(:billing))
         links << { label: "Pricing", href: pricing_path }

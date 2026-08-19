@@ -105,9 +105,6 @@ module Rename
 
   NEXT_STEPS = [
     "Billing: set STRIPE_PUBLIC_KEY, STRIPE_PRIVATE_KEY, STRIPE_SIGNING_SECRET and the plan price IDs.",
-    # foundation:module storefront
-    "Storefront: set STOREFRONT_STRIPE_SECRET_KEY, STOREFRONT_STRIPE_WEBHOOK_SECRET, STOREFRONT_STRIPE_MODE.",
-    # /foundation:module storefront
     "OAuth: set GOOGLE_OAUTH_CLIENT_ID/SECRET and GITHUB_OAUTH_CLIENT_ID/SECRET, or remove those buttons.",
     "Mail: set SMTP_ADDRESS, SMTP_PORT, SMTP_USERNAME/SMTP_PASSWORD, MAILER_FROM, and APP_HOST.",
     "Storage: set ACTIVE_STORAGE_SERVICE to a cloud service in config/storage.yml.",

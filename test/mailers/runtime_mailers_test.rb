@@ -44,20 +44,6 @@ class RuntimeMailersTest < ActionMailer::TestCase
     end
   end
 
-  # foundation:module storefront
-  test "storefront receipt uses canonical host and app identity" do
-    with_runtime_mail do
-      receipt = Foundation::Storefront::OrderMailer.receipt(create_storefront_order).message
-
-      assert_runtime_mail(receipt)
-      assert_match %r{https://#{CANONICAL_HOST}/storefront/orders/}, receipt.body.encoded
-      assert_match %r{https://#{CANONICAL_HOST}/legal/terms}, receipt.body.encoded
-      assert_match %r{https://#{CANONICAL_HOST}/legal/privacy}, receipt.text_part.body.decoded
-      assert_no_match(/example\.com/, receipt.text_part.body.decoded)
-      assert_match(/@#{Regexp.escape(CANONICAL_HOST)}\z/, receipt.message_id)
-    end
-  end
-  # /foundation:module storefront
 
   private
 

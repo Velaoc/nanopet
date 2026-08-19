@@ -11,12 +11,6 @@ class User < ApplicationRecord
 
   has_many :legal_acceptances, dependent: :destroy
   has_many :identities, dependent: :destroy
-  # foundation:module storefront
-  has_many :storefront_orders,
-    class_name: "Foundation::Storefront::Order",
-    dependent: :nullify,
-    inverse_of: :user
-  # /foundation:module storefront
   has_sessions
 
   # Team workspaces (SPEC M4). A personal organization is created right

@@ -6,13 +6,6 @@ class MaterialDesignPagesTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "a.md-skip-link[href='#main-content']", text: "Skip to main content"
-    # foundation:module storefront
-    assert_select "h1", minimum: 1
-    assert_select "main#main-content"
-    assert_select "a[href='#{storefront_cart_path}']", minimum: 1
-    assert_select "a[href='#{storefront_products_path}']", minimum: 1
-    assert_select ".md-pricing-grid", count: 0
-    # /foundation:module storefront
     assert_select "footer a[href='#{legal_terms_path}']", minimum: 1
   end
 
@@ -38,10 +31,6 @@ class MaterialDesignPagesTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "nav.md-navigation", count: 1
     assert_select "nav[aria-label='Primary']", count: 1
-    # foundation:module storefront
-    assert_select "nav.md-navigation a[href='#{root_path}'], nav.md-navigation a[href='#{storefront_products_path}']", minimum: 1
-    assert_select "nav.md-navigation a[href='#{storefront_cart_path}']", minimum: 1
-    # /foundation:module storefront
     # Compact keeps Sign out behind More; rail/drawer keep an inline control.
     assert_select "nav.md-navigation form button.md-navigation__signout", text: "Sign out", minimum: 1
     assert_select "nav.md-navigation .md-navigation__more", count: 1

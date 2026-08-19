@@ -57,18 +57,6 @@ class MailDesignTest < ActionMailer::TestCase
     assert_includes invite_html, "background-color: #{LIGHT.fetch("primary")}"
   end
 
-  # foundation:module storefront
-  test "storefront receipt uses branded inline layout" do
-    receipt = Foundation::Storefront::OrderMailer.receipt(create_storefront_order).message
-
-    assert_multipart_mail receipt
-    assert_inline_branded_html receipt.html_part.body.decoded
-    receipt_html = receipt.html_part.body.decoded
-    assert_match(/View your receipt/, receipt_html)
-    assert_match(/Terms of Service/, receipt_html)
-    assert_includes receipt_html, "background-color: #{LIGHT.fetch("primary")}"
-  end
-  # /foundation:module storefront
 
   test "mailer helper colours match committed light scheme tokens" do
     helper = Object.new.extend(Foundation::MailerHelper)

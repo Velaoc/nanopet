@@ -121,9 +121,6 @@ class RenameScriptTest < ActiveSupport::TestCase
     # because this test also runs inside generated applications that have
     # legitimately customized them (a real app's changed brand seed once
     # failed here purely for not being the template's default).
-    # foundation:module storefront
-    assert_equal original_identity.fetch("storefront_enabled"), stamped_identity.fetch("storefront_enabled")
-    # /foundation:module storefront
     assert_equal original_identity.fetch("brand_seed_color"), stamped_identity.fetch("brand_seed_color")
   end
 

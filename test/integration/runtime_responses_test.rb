@@ -30,17 +30,6 @@ class RuntimeResponsesTest < ActionDispatch::IntegrationTest
     assert_nil response.headers["X-Robots-Tag"]
   end
 
-  # foundation:module storefront
-  test "hostile request Host never changes generated mail links" do
-    host! "attacker.invalid"
-    with_env("APP_HOST" => "https://canonical.example") do
-      mail = Foundation::Storefront::OrderMailer.receipt(create_storefront_order).message
-
-      assert_match %r{https://canonical\.example/storefront/orders/}, mail.body.encoded
-      assert_no_match(/attacker\.invalid/, mail.body.encoded)
-    end
-  end
-  # /foundation:module storefront
 
   # SPEC M9.2 puts every generated link on the APP_HOST origin, not only the
   # ones a mailer renders. A controller and a mailer must agree even while the
@@ -63,11 +52,6 @@ class RuntimeResponsesTest < ActionDispatch::IntegrationTest
       with_stubbed_singleton_method(Foundation::BillingGateway, :checkout_url, checkout) do
         post billing_checkout_path, params: { plan: "pro", interval: "month" }
       end
-      # foundation:module storefront
-      mail = Foundation::Storefront::OrderMailer.receipt(create_storefront_order).message
-      assert_match %r{https://links\.canonical\.example/storefront/orders/}, mail.body.encoded
-      assert_no_match(/attacker\.invalid/, mail.body.encoded)
-      # /foundation:module storefront
 
       assert_equal "https://links.canonical.example/billing?checkout=success", captured[:success_url]
       assert_equal "https://links.canonical.example/pricing?interval=month", captured[:cancel_url]

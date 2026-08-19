@@ -15,25 +15,11 @@ module Foundation
     Modules.available?(name, root: root)
   end
 
-  # foundation:module storefront
-  def self.storefront_enabled?
-    Rails.configuration.x.foundation[:storefront_enabled] == true
-  end
-  # /foundation:module storefront
 
   def self.preview?
     runtime_config.preview?
   end
 
-  # foundation:module storefront
-  def self.storefront_simulator?
-    storefront_enabled? && runtime_config.simulator?
-  end
-
-  def self.storefront_preview_stripe?
-    storefront_enabled? && runtime_config.preview_stripe?
-  end
-  # /foundation:module storefront
 
   # True when the app is running as a hosted Holodex preview that has no
   # SMTP relay configured (SPEC M2.5 / M9.3). The preview flag is injected

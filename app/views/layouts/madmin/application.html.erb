@@ -49,14 +49,6 @@
               <%= link_to child.label, child.url, class: class_names("md-admin-nav__item", active: request.path.start_with?(child.url)) %>
             <% end %>
           <% end %>
-          <%# foundation:module storefront %>
-          <% if Foundation.storefront_enabled? %>
-            <p class="md-admin-nav__label">Storefront</p>
-            <%= link_to "Products", main_app.storefront_admin_products_path, class: class_names("md-admin-nav__item", active: request.path.start_with?("/admin/storefront/products")) %>
-            <%= link_to "Orders", main_app.storefront_admin_orders_path, class: class_names("md-admin-nav__item", active: request.path.start_with?("/admin/storefront/orders")) %>
-            <%= link_to "Payment events", main_app.storefront_admin_payment_events_path, class: class_names("md-admin-nav__item", active: request.path.start_with?("/admin/storefront/payment_events")) %>
-          <% end %>
-          <%# /foundation:module storefront %>
           <%= link_to "Background jobs", main_app.admin_jobs_path, class: class_names("md-admin-nav__item", active: request.path.start_with?("/admin/jobs")) %>
         </nav>
       </aside>

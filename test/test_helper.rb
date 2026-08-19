@@ -2,9 +2,6 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 require_relative "support/billing_test_helper"
-# foundation:module crm
-require_relative "support/crm_test_helper" if File.exist?(File.expand_path("support/crm_test_helper.rb", __dir__))
-# /foundation:module crm
 
 # Drives OmniAuth in its test mode: the request phase never contacts a
 # provider and instead redirects straight to the callback carrying the
@@ -82,28 +79,4 @@ module ReauthenticationTestHelpers
   end
 end
 
-# foundation:module storefront
-module StorefrontTestHelpers
-  private
-
-  def create_storefront_product(**attributes)
-    suffix = SecureRandom.hex(4)
-    Foundation::Storefront::Product.create!({
-      name: "Digital product #{suffix}", slug: "digital-product-#{suffix}",
-      sku: "DIGITAL-#{suffix.upcase}", description: "A downloadable test product.",
-      price_cents: 1_299, currency: "USD", active: true,
-      inventory_quantity: 20, position: 0
-    }.merge(attributes))
-  end
-
-  def create_storefront_order(product: create_storefront_product, quantity: 1, email: "guest@example.com", user: nil)
-    Foundation::Storefront::CreateOrder.call(
-      cart: { product.id.to_s => quantity.to_s }, email: email, user: user,
-      legal_assent: "1", ip: "192.0.2.10", user_agent: "Storefront test"
-    )
-  end
-end
-
-ActiveSupport::TestCase.include(StorefrontTestHelpers)
-# /foundation:module storefront
 ActionDispatch::IntegrationTest.include(ReauthenticationTestHelpers)

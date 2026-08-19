@@ -120,16 +120,6 @@ class MaterialDesignTokensTest < ActiveSupport::TestCase
     assert_match(/\.md-navigation__item > span:not\(\.material-symbol\)\s*\{[^}]*white-space:\s*nowrap/m, css)
   end
 
-  # foundation:module storefront
-  test "empty product image placeholder is bounded by aspect ratio" do
-    css = SYSTEM_CSS_PATH.read
-
-    assert_match(/\.storefront-product-card__image,\s*\.storefront-product-detail__image\s*\{[^}]*aspect-ratio:\s*4\s*\/\s*3/m, css)
-    assert_match(/\.storefront-image-placeholder\s*\{[^}]*aspect-ratio:\s*4\s*\/\s*3/m, css)
-    assert_no_match(/\.storefront-product-card__image[^}]*min-height:\s*240px/m, css)
-    assert_includes css, "minmax(min(100%, 240px), 1fr)"
-  end
-  # /foundation:module storefront
 
   test "icon subset and mapping are pinned" do
     font = Rails.root.join("app/assets/fonts/material-symbols-rounded-subset.woff2")

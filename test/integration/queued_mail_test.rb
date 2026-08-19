@@ -19,47 +19,6 @@ class QueuedMailTest < ActionDispatch::IntegrationTest
     end
   end
 
-  # foundation:module storefront
-  test "mail handed to the queue is enqueued and then actually delivered" do
-    with_queue_in_puma do
-      ActionMailer::Base.deliveries.clear
-
-      assert_enqueued_jobs 1, only: ActionMailer::MailDeliveryJob do
-        Foundation::Storefront::OrderMailer.receipt(create_storefront_order).deliver_later
-      end
-      assert_empty ActionMailer::Base.deliveries, "delivery must wait for the queue to run"
-
-      perform_enqueued_jobs
-      delivered = ActionMailer::Base.deliveries.last
-
-      assert_equal 1, ActionMailer::Base.deliveries.size
-      assert_match %r{https://queued\.canonical\.example/storefront/orders/}, delivered.body.encoded
-      assert_equal [ "queue@queued.canonical.example" ], delivered.from
-    end
-  end
-
-  # The storefront's own receipt path is queued rather than inline, so the
-  # enqueue/perform contract covers a real application flow end to end.
-  test "a fulfilled order delivers its receipt once the queue runs" do
-    with_queue_in_puma do
-      ActionMailer::Base.deliveries.clear
-      order = create_storefront_order
-
-      assert_enqueued_jobs 1, only: Foundation::Storefront::OrderReceiptJob do
-        Foundation::Storefront::FulfillOrder.call(
-          order: order, session_id: nil,
-          payment_id: "simulation_payment_#{order.public_reference}", simulated: true
-        )
-      end
-      assert_empty ActionMailer::Base.deliveries
-
-      perform_enqueued_jobs
-
-      assert_predicate order.reload, :receipt_sent_at?
-      assert_equal [ order.email ], ActionMailer::Base.deliveries.last.to
-    end
-  end
-  # /foundation:module storefront
 
   private
 

@@ -68,28 +68,6 @@
           <p>Versioned path configuration, deep-link association documents, and native entry and auth handoff for a Hotwire Native shell — ordinary browsers never receive those routes.</p>
         </div>
       </article>
-      <%# foundation:module storefront %>
-      <% if Foundation.module_available?("storefront") %>
-        <article class="md-card md-card--filled md-feature" data-capability="storefront" data-module="storefront">
-          <span class="md-feature__number" aria-hidden="true"><%= material_symbol(:home, size: 32) %></span>
-          <div>
-            <h3>Guest-first storefront</h3>
-            <p>Catalog, cart, and checkout without an account. Amounts are priced server-side; fulfillment runs only through a verified Stripe webhook. Digital goods only.</p>
-          </div>
-        </article>
-      <% end %>
-      <%# /foundation:module storefront %>
-      <%# foundation:module crm %>
-      <% if Foundation.module_available?("crm") %>
-        <article class="md-card md-card--filled md-feature" data-capability="crm" data-module="crm">
-          <span class="md-feature__number" aria-hidden="true"><%= material_symbol(:account_circle, size: 32) %></span>
-          <div>
-            <h3>Organization CRM</h3>
-            <p>Contacts, companies, leads, opportunities, pipelines, tasks, tags, and a per-record activity timeline — scoped to the current organization on every query.</p>
-          </div>
-        </article>
-      <% end %>
-      <%# /foundation:module crm %>
     </div>
   </div>
 </section>

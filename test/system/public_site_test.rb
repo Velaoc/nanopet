@@ -13,19 +13,12 @@ class PublicSiteTest < ApplicationSystemTestCase
     visit root_path
 
     assert_selector "main#main-content"
-    # foundation:module storefront
-    assert_selector "h1", minimum: 1
-    # /foundation:module storefront
     assert_selector "a.md-skip-link[href='#main-content']", visible: :all
 
     app_name = Rails.configuration.x.foundation[:application_name]
     within "header.md-top-app-bar" do
       assert_selector "a.md-wordmark[href='#{root_path}'][aria-label='#{app_name} home']"
       assert_selector "a.md-wordmark .md-wordmark__name", text: app_name
-      # foundation:module storefront
-      assert_selector "a[href='#{storefront_products_path}']", minimum: 1
-      assert_selector "a[href='#{storefront_cart_path}']", minimum: 1
-      # /foundation:module storefront
       assert_link "Sign in", href: new_user_session_path
     end
 

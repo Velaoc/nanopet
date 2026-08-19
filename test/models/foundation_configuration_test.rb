@@ -20,14 +20,6 @@ class FoundationConfigurationTest < ActiveSupport::TestCase
       healthcheck_disk_usage_percent_max
       healthcheck_memory_usage_percent_max
     ]
-    # foundation:module storefront
-    keys += %w[
-      storefront_enabled
-      storefront_fulfillment_mode
-      storefront_commerce_legal_reviewed
-      storefront_external_image_hosts
-    ]
-    # /foundation:module storefront
     keys.freeze
   end
 
@@ -54,12 +46,6 @@ class FoundationConfigurationTest < ActiveSupport::TestCase
     assert_equal "platform", foundation[:product_surface]
     assert_equal "material", foundation[:design_skin]
     assert_equal false, foundation.dig(:rarebox_data, :enabled)
-    # foundation:module storefront
-    assert_equal true, foundation[:storefront_enabled]
-    assert_equal "digital", foundation[:storefront_fulfillment_mode]
-    assert_equal false, foundation[:storefront_commerce_legal_reviewed]
-    assert_equal [], foundation[:storefront_external_image_hosts]
-    # /foundation:module storefront
     assert_equal 90, foundation[:healthcheck_disk_usage_percent_max]
     assert_equal 90, foundation[:healthcheck_memory_usage_percent_max]
   end

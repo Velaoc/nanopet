@@ -17,9 +17,6 @@ class HealthcheckTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Hosted preview is inactive"
     assert_includes response.body, "Mail mode: test application provider"
     assert_includes response.body, "Storage mode: test disk"
-    # foundation:module storefront
-    assert_includes response.body, "Storefront simulator is inactive"
-    # /foundation:module storefront
     assert_includes response.body, "Solid Queue runs external worker"
     assert_includes response.body, "Disk usage is below"
     assert_includes response.body, "Memory usage is below"

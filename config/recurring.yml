@@ -10,17 +10,6 @@
 #     schedule: at 5am every day
 
 production:
-  # foundation:module storefront
-  storefront_expire_reservations:
-    class: Foundation::Storefront::ExpireReservationJob
-    schedule: every 5 minutes
-  storefront_repair_receipts:
-    class: Foundation::Storefront::RepairReceiptDispatchesJob
-    schedule: every 5 minutes
-  storefront_purge_unattached_blobs:
-    class: Foundation::Storefront::PurgeUnattachedBlobsJob
-    schedule: every day at 3am
-  # /foundation:module storefront
   sessions_sweep:
     class: SessionsSweepJob
     schedule: every day at 4am

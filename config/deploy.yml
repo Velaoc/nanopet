@@ -76,9 +76,6 @@ env:
     # SMTP_PORT: "587"
     # SMTP_ENABLE_STARTTLS_AUTO: "true"
     # MAILER_FROM: "Product <noreply@example.com>"
-    # foundation:module storefront
-    # STOREFRONT_STRIPE_MODE: live
-    # /foundation:module storefront
     # AWS_REGION: us-east-1
     # S3_BUCKET: your-bucket
     # S3_ENDPOINT: https://xxx.r2.cloudflarestorage.com
@@ -99,11 +96,6 @@ env:
     # - STRIPE_PRO_YEARLY_PRICE_ID
     # - STRIPE_ENTERPRISE_MONTHLY_PRICE_ID
     # - STRIPE_ENTERPRISE_YEARLY_PRICE_ID
-    # foundation:module storefront
-    # Storefront (distinct webhook secret from Pay)
-    # - STOREFRONT_STRIPE_SECRET_KEY
-    # - STOREFRONT_STRIPE_WEBHOOK_SECRET
-    # /foundation:module storefront
     # OAuth / Turnstile
     # - GOOGLE_OAUTH_CLIENT_ID
     # - GOOGLE_OAUTH_CLIENT_SECRET

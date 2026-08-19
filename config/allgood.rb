@@ -32,11 +32,6 @@ check "Storage mode: #{runtime_config.storage_mode}" do
     "Production requires ACTIVE_STORAGE_SERVICE to name a configured non-disk cloud service"
 end
 
-# foundation:module storefront
-check "Storefront simulator is #{Foundation.storefront_simulator? ? 'active' : 'inactive'}" do
-  make_sure true, "Payment mode is reported without contacting Stripe"
-end
-# /foundation:module storefront
 
 check "Solid Queue runs #{runtime_config.queue_mode}" do
   make_sure true, "Queue process topology is reported from SOLID_QUEUE_IN_PUMA"
@@ -81,14 +76,6 @@ check "Configured storage is writable" do
   make_sure written, "The #{service.class.name.demodulize} storage service should accept a small write"
 end
 
-# foundation:module storefront
-unless Rails.env.test?
-  check "Enabled storefront payment configuration is ready" do
-    result = Foundation::Storefront::Readiness.call
-    make_sure result.ready?, result.errors.join("; ")
-  end
-end
-# /foundation:module storefront
 
 disk_threshold = Rails.configuration.x.foundation.fetch(:healthcheck_disk_usage_percent_max, 90).to_i
 check "Disk usage is below #{disk_threshold}%" do

@@ -7,7 +7,7 @@
 # shipping an app; editing them here by hand works too.
 shared:
   # Display name used in page titles, meta tags, and mail.
-  application_name: "Application"
+  application_name: "NanoPet"
 
   # Absolute URL or asset path for the product logo. Blank renders a
   # plain wordmark instead.
@@ -19,7 +19,7 @@ shared:
 
   # Fallbacks for pages that do not set their own title/description.
   default_page_title: "Welcome"
-  default_page_description: "A production-ready Rails application."
+  default_page_description: "A tamagotchi-style virtual pet that lives in the browser: feed it, play with it, put it to rest, and keep it alive stats decay over real time and persist across reloads."
 
   # Absolute URL of the default Open Graph / social sharing image.
   # Blank omits the og:image tag.
@@ -30,12 +30,12 @@ shared:
   social_links: {}
 
   # Operator mailboxes surfaced in support links and legal pages.
-  support_email: "support@example.com"
-  legal_email: "legal@example.com"
+  support_email: "support@nanopet.api.holode.xyz"
+  legal_email: "legal@nanopet.api.holode.xyz"
 
   # Canonical production domain, no scheme. Used for sitemaps and
   # absolute URLs in mail.
-  domain: "example.com"
+  domain: "nanopet.api.holode.xyz"
 
   # Product surface: which foundation chrome this generated app exposes.
   # Modules control what code is on disk; the surface controls what the
@@ -62,27 +62,6 @@ shared:
     game: pokemon
     path: ""
     remote: "https://raw.githubusercontent.com/novaoc/rarebox-data/main"
-
-  # Exact storefront feature flag (SPEC M8): only the YAML boolean true
-  # enables its routes, navigation, models' entry points, and production
-  # readiness requirement. Any other value is disabled. Commerce-oriented
-  # apps generated from this foundation are ready to customize by default.
-  storefront_enabled: true
-
-  # M8 deliberately supports digital fulfillment only. Inventory can model
-  # limited licenses/capacity. A physical-goods app must first implement
-  # address collection, shipping/tax calculation, and matching legal terms;
-  # readiness rejects any unimplemented mode instead of silently shipping.
-  storefront_fulfillment_mode: "digital"
-
-  # A live production storefront refuses readiness until an operator has
-  # completed the commerce-specific legal/identity checklist in
-  # docs/STOREFRONT.md and deliberately changes this marker to true.
-  storefront_commerce_legal_reviewed: false
-
-  # Exact lowercase HTTPS hosts permitted for browser-rendered external
-  # product images. Empty (the safe default) requires Active Storage uploads.
-  storefront_external_image_hosts: []
 
   # Host capacity ceilings for /healthcheck disk and memory probes (percent used).
   # Probes pass with an informational note when the platform cannot report figures.
