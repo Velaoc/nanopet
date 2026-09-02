@@ -100,7 +100,7 @@ gem "profitable", "~> 0.6"
 # Rails 8.1 / Ruby 4 foundation runtime.
 gem "madmin", "~> 2.4.0"
 gem "sessions", "~> 0.2.2"
-gem "mission_control-jobs", "~> 1.1.0"
+gem "mission_control-jobs", "~> 1.2.0"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
