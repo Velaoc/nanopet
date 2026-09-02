@@ -91,7 +91,7 @@ gem "organizations"
 # metrics (SPEC M5). Pay persists Stripe webhook state locally;
 # pricing_plans resolves plan access; profitable reads Pay's local records.
 gem "pay", "~> 11.7"
-gem "stripe", "~> 19.0"
+gem "stripe", "~> 19.6"
 gem "pricing_plans", "~> 0.4"
 gem "profitable", "~> 0.6"
 
